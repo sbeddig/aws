@@ -1,4 +1,4 @@
 # AWS Examples
 
 ## DynamoDB
-[Java + local dynamodb](dynamodb)
+- [Java + local dynamodb](dynamodb/java)

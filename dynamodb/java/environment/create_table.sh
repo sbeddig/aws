@@ -37,16 +37,6 @@ cleanup() {
   done
 }
 
-put_item() {
-  json=$1
-  table_name=$2
-  aws dynamodb put-item \
-    --table-name "$table_name" \
-    --item '{"Name": {"S": "H-Milch"},"Manufacturer": {"S": "Gut und Günstig"}}' \
-    --cli-input-json file://"$json" \
-    --endpoint-url http://localhost:8000
-}
-
 get_items() {
   table_name=$1
   aws dynamodb query \
