@@ -21,4 +21,10 @@ public class DynamoDbClient {
     public Article getArticle(String primaryKey, String sortKey) {
         return mapper.load(Article.class, primaryKey, sortKey);
     }
+
+    public void deleteArticle(String primaryKey, String sortKey) {
+        Article article = getArticle(primaryKey, sortKey);
+        if (article != null)
+            mapper.delete(article);
+    }
 }

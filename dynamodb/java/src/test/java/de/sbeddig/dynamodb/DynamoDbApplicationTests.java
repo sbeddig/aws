@@ -4,6 +4,8 @@ import de.sbeddig.dynamodb.adapter.DynamoDbClient;
 import de.sbeddig.dynamodb.model.Article;
 import de.sbeddig.dynamodb.model.Grocery;
 import de.sbeddig.dynamodb.model.Quantity;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,16 @@ class DynamoDbApplicationTests {
 
 	private static final String PRIMARY_KEY = "name";
 	private static final String SORT_KEY = "manufacturer";
+
+	@BeforeEach
+	public void init() {
+		dynamoDbClient.deleteArticle(PRIMARY_KEY, SORT_KEY);
+	}
+
+	@AfterEach
+	public void cleanup() {
+		dynamoDbClient.deleteArticle(PRIMARY_KEY, SORT_KEY);
+	}
 
 	@Test
 	void saveArticle() {
