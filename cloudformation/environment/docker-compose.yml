@@ -1,0 +1,14 @@
+version: "2.1"
+
+services:
+  localstack:
+    image: localstack/localstack:0.11.5
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=cloudformation,iam,lambda,dynamodb,apigateway,s3,sns,sqs,cloudwatch,kinesis
+      - DEFAULT_REGION=eu-west-1
+      - DATA_DIR=/tmp/localstack/data
+      - LAMBDA_EXECUTOR=local
+      - DOCKER_HOST=unix:///var/run/docker.sock
