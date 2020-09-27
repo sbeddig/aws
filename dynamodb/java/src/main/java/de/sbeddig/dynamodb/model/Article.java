@@ -1,8 +1,6 @@
 package de.sbeddig.dynamodb.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -24,6 +22,9 @@ public class Article {
 
     @DynamoDBTypeConverted(converter = DynamoDbGroceryConverter.class)
     private List<Grocery> groceries = new ArrayList<>();
+
+    @DynamoDBVersionAttribute
+    private Long version;
 
 }
 
