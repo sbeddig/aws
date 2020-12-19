@@ -6,6 +6,7 @@
 ## AWS Serverless Stack
 
 - AWS Lambda
+    - [CDK - S3 - Lambda - Typescript](cdk/s3_lambda)
 - Amazon API Gateway
 - Amazon S3
 - Amazon Dynamo DB
