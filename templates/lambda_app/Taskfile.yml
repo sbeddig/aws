@@ -1,0 +1,39 @@
+version: '3'
+
+tasks:
+  default:
+    deps: [ check-preconditions ]
+    desc: deploy to aws
+    cmds:
+      - task build
+      - task deploy
+
+  check-preconditions:
+    desc: check if all tools for development are installed and running
+    cmds:
+      - tsc -version &> /dev/null
+      - cdk --version &> /dev/null
+    silent: true
+
+  build:
+    desc: build all lambdas from folder functions
+    cmds:
+      - task build-app_1
+
+  build-app_1:
+    desc: build file import lambda
+    dir: apps/app_1
+    cmds:
+      - tsc
+
+  deploy:
+    desc: deploy lambdas to aws
+    dir: cdk
+    cmds:
+      - cdk deploy
+
+  destroy:
+    desc: destroy cdk stack
+    dir: cdk
+    cmds:
+      - cdk destroy
