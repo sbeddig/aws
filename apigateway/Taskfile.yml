@@ -13,3 +13,8 @@ tasks:
     cmds:
       - ./setup-local-env.sh
     silent: true
+
+  build-lambdas:
+    cmds:
+      - ./scripts/build_lambdas.sh &> /dev/null
+    silent: true
