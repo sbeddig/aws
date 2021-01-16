@@ -1,0 +1,15 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task setup-local-env
+    silent: true
+
+  setup-local-env:
+    dir: ./test-environment
+    cmds:
+      - ./setup-local-env.sh
+    silent: true
