@@ -6,6 +6,8 @@ tasks:
   default:
     cmds:
       - task setup-local-env
+      - task build-lambdas
+      - task deploy-local
     silent: true
 
   setup-local-env:
@@ -17,4 +19,11 @@ tasks:
   build-lambdas:
     cmds:
       - ./scripts/build_lambdas.sh &> /dev/null
+    silent: true
+
+  deploy-local:
+    dir: ./infrastructure
+    cmds:
+      - npm run test
+      - cdklocal deploy --require-approval never
     silent: true
