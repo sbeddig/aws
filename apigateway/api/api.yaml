@@ -1,0 +1,11 @@
+openapi: "3.0.2"
+info:
+  title: API Title
+  version: "1.0"
+paths:
+  /hello-world:
+    get:
+      operationId: getAll
+      responses:
+        '200':
+          description: OK
