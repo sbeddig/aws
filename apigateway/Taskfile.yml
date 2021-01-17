@@ -17,8 +17,9 @@ tasks:
     silent: true
 
   build-lambdas:
+    dir: ./apps
     cmds:
-      - ./scripts/build_lambdas.sh &> /dev/null
+      - ./build_lambdas.sh &> /dev/null
     silent: true
 
   deploy-local:

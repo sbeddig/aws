@@ -6,7 +6,6 @@ networks:
 services:
   dynamodb:
     image: amazon/dynamodb-local:latest
-    container_name: dynamodb-local
     ports:
       - 8000:8000
     command: [ "-jar", "DynamoDBLocal.jar", "-sharedDb", "-inMemory" ]
@@ -14,7 +13,6 @@ services:
       - test-network
 
   localstack:
-    container_name: localstack
     image: 'localstack/localstack:0.12.5'
     restart: always
     ports:

@@ -1,0 +1,20 @@
+openapi: "3.0.2"
+info:
+  title: API Title
+  version: "1.0"
+paths:
+  /hello-world:
+    get:
+      responses:
+        '200':
+          description: OK
+      x-amazon-apigateway-integration:
+        uri:
+          arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:${helloWorld.Arn}/invocations
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"

@@ -4,7 +4,9 @@ import * as sqs from '@aws-cdk/aws-sqs';
 import * as cdk from '@aws-cdk/core';
 import * as api from '@aws-cdk/aws-apigateway';
 import * as lambda from '@aws-cdk/aws-lambda';
+import * as logs from '@aws-cdk/aws-logs';
 import * as path from 'path';
+import {CfnOutput} from '@aws-cdk/core';
 
 export class InfrastructureStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -18,17 +20,27 @@ export class InfrastructureStack extends cdk.Stack {
 
     topic.addSubscription(new subs.SqsSubscription(queue));
 
-    new lambda.Function(this, 'MyGoFunction', {
-      runtime: lambda.Runtime.GO_1_X,
-      handler: 'main',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../build/getAll.zip')),
+    const functions = [
+      { name: 'helloWorld' }
+    ];
+
+    for (const fn of functions) {
+      new lambda.Function(this, fn.name, {
+        functionName: fn.name,
+        runtime: lambda.Runtime.GO_1_X,
+        handler: 'main',
+        code: lambda.Code.fromAsset(path.join(__dirname, `../../apps/build/${fn.name}.zip`)),
+        logRetention: logs.RetentionDays.ONE_DAY
+      });
+    }
+
+    const helloWorldApi = new api.SpecRestApi(this, 'hello-world-api', {
+      apiDefinition: api.ApiDefinition.fromAsset('../api/spec.yaml'),
     });
 
-    // const helloWorldApi = new api.SpecRestApi(this, 'hello-world-api', {
-    //   apiDefinition: api.ApiDefinition.fromAsset('../api/api.yaml')
-    // });
-
-
+    new CfnOutput(this, "Endpoint", {
+      value: `http://localhost:4566/restapis/${helloWorldApi.restApiId}/prod/_user_request_/`
+    })
 
   }
 }
