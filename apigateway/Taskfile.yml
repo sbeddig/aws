@@ -25,5 +25,6 @@ tasks:
     dir: ./infrastructure
     cmds:
       - npm run test
+      - cdklocal bootstrap
       - cdklocal deploy --require-approval never
     silent: true
